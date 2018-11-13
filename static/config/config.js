@@ -1,6 +1,6 @@
 var WXCONF = {
   sysName: '常用公共组件库',
-  apiHost: 'http://localhost:3000/',
+  apiHost: 'http://localhost:3000/api/',
   mapConfig: {
     center: [109.1090890344, 21.4412820717],
     zoom: 18,

@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",
-    "start": "npm run dev",
+    "start": "concurrently \"npm run dev\" \"npm run mock\"",
+    "mock": "node-dev build/mock-server.js",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
@@ -31,6 +32,7 @@
     "babel-preset-env": "^1.3.2",
     "babel-preset-stage-2": "^6.22.0",
     "chalk": "^2.0.1",
+    "concurrently": "^4.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
     "eslint": "^4.15.0",
@@ -46,6 +48,7 @@
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
+    "node-dev": "^3.1.3",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.10.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",

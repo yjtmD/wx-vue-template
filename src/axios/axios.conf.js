@@ -34,7 +34,7 @@ let Axios = axios.create({
   /* eslint-disable no-undef */
   baseURL: WXCONF.apiHost,
   timeout: 5000,
-  withCredentials: true,
+  // withCredentials: true,
   headers: {
     'X-Requested-With': 'XMLHttpRequest'
   }
