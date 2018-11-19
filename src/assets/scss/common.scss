@@ -41,3 +41,9 @@ em {
 a {
   text-decoration: none;
 }
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

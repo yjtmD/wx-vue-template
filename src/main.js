@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import './assets/scss/element-variables.scss'
 import axios from './axios/axios.conf'
 import store from './vuex/store'
+import './assets/font/iconfont.css'
 import './assets/scss/common.scss'
 
 Vue.config.productionTip = false

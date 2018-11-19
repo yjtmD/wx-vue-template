@@ -76,8 +76,12 @@ module.exports = {
         }
       },
       {
-        test: /\.less$/,
-        loader: "style-loader!css-loader!less-loader",
+        test: /\.swf$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('plugin/[name].[hash:7].[ext]')
+        }
       }
     ]
   },
