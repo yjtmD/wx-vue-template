@@ -11,7 +11,7 @@ var WXCONF = {
     {
       id: '1000001',
       name: '首页',
-      pathName: 'index',
+      pathName: 'Home',
       children: []
     },
     {
@@ -20,7 +20,7 @@ var WXCONF = {
       children: [
         {
           id: '100000201',
-          pathName: '/video/realMonitor',
+          pathName: 'RealMonitor',
           name: '九宫格实时视频'
         }
       ]
@@ -28,14 +28,24 @@ var WXCONF = {
     {
       id: '1000003',
       name: '文字输入',
-      pathName: '/input/index',
-      children: []
+      children: [
+        {
+          id: '100000301',
+          pathName: 'TextArea',
+          name: 'textArea字数限定'
+        }
+      ]
     },
     {
       id: '1000004',
       name: '选择列表',
-      pathName: '/select/index',
-      children: []
+      children: [
+        {
+          id: '100000401',
+          pathName: 'DateTime',
+          name: '日期时间选择'
+        }
+      ]
     }
   ]
 }

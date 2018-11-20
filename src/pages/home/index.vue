@@ -8,6 +8,7 @@
 </template>
 <script>
 import wxLayout from '@/components/layout/index'
+
 export default {
   components: {
     wxLayout
