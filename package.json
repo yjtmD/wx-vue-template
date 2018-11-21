@@ -14,7 +14,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.4.9",
-    "layui-laydate": "^5.0.9",
     "maptalks": "^0.42.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
