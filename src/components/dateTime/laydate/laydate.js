@@ -1245,7 +1245,7 @@
         li.innerHTML = '<em class="laydate-text">' + lay.digit(i, 2) + '</em>';
         ul.appendChild(li);
         that[startEnd] = dateTime;
-        that.limit(lay(li), {hours: i}, i, ['hours']);
+        that.limit(lay(li), {hours: i}, index, ['hours']);
         if(!options.range) that.limit(lay(that.footer).find(ELEM_CONFIRM), that[startEnd], 0, ['hours', 'minutes', 'seconds']);
       })
     } else if(type === 'minute') {
@@ -1262,7 +1262,7 @@
         li.innerHTML = '<em class="laydate-text">' + lay.digit(i, 2) + '</em>';
         ul.appendChild(li);
         that[startEnd] = dateTime;
-        that.limit(lay(li), {hours: that[startEnd].hours, minutes: i}, i, ['hours', 'minutes']);
+        that.limit(lay(li), {hours: that[startEnd].hours, minutes: i}, index, ['hours', 'minutes']);
         if(!options.range) that.limit(lay(that.footer).find(ELEM_CONFIRM), that[startEnd], 0, ['hours', 'minutes', 'seconds']);
       })
     } else if(type === 'second') {
@@ -1279,7 +1279,7 @@
         li.innerHTML = '<em class="laydate-text">' + lay.digit(i, 2) + '</em>';
         ul.appendChild(li);
         that[startEnd] = dateTime;
-        that.limit(lay(li), {hours: that[startEnd].hours, minutes: that[startEnd].minutes, seconds: i}, i, ['hours', 'minutes', 'seconds']);
+        that.limit(lay(li), {hours: that[startEnd].hours, minutes: that[startEnd].minutes, seconds: i}, index, ['hours', 'minutes', 'seconds']);
         if(!options.range) that.limit(lay(that.footer).find(ELEM_CONFIRM), that[startEnd], 0, ['hours', 'minutes', 'seconds']);
       })
     }

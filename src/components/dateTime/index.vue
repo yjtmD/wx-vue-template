@@ -54,7 +54,9 @@ export default {
     window.laydate.render({
       elem: '#' + this.id,
       value: this.userInput,
-      type: 'datetime',
+      // min: '2017-10-25 12:25:34', // 时间范围下限
+      // max: '2018-11-23 01:43:21', // 时间范围上限
+      type: 'datetime', // date datetime
       done: (value, date, endDate) => {
       }
     })
