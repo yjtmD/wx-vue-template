@@ -42,3 +42,8 @@ npm run build
 ├── README.md        
 
 ```
+
+## 插件截图
+
+> 基于Laydate改写的时间选择，全部点选
+![Image text](./static/screenShot/time1.png)
