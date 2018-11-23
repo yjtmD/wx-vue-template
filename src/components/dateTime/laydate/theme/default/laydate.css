@@ -67,11 +67,14 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .laydate-day-mark::after{position: absolute; content:''; right: 2px; top: 2px; width: 5px; height: 5px; border-radius: 50%;}
 
 /* 底部结构 */
-.layui-laydate-footer{position: relative; height: 46px; line-height: 26px; padding: 10px 20px;}
-.layui-laydate-footer span{margin-right: 15px; display: inline-block; cursor: pointer; font-size: 12px;}
-.layui-laydate-footer span:hover{color: #5FB878;}
-.laydate-footer-btns{position: absolute; right: 10px; top: 10px;}
-.laydate-footer-btns span{height: 26px; line-height: 26px; margin: 0 0 0 -1px; padding: 0 10px; border: 1px solid #C9C9C9; background-color: #fff;  white-space: nowrap; vertical-align: top; border-radius: 2px;}
+.layui-laydate-footer{position: relative; height: 30px; line-height: 30px; padding: 0 10px 10px 10px;}
+.layui-laydate-footer span{display: inline-block; cursor: pointer; font-size: 12px;}
+.laydate-footer-btns{position: absolute; right: 10px; top: 0;}
+.laydate-footer-btns span.laydate-btns{height: 20px; line-height: 20px; margin-right: 5px; padding: 0 8px; border: none; background-color: #fff; white-space: nowrap; vertical-align: top; border-radius: 4px; font-size: 12px; cursor: pointer; color: #3B86FF;}
+.laydate-footer-btns span.laydate-btns:last-child {margin-right: 0px;color: #fff; background: #ff9921;}
+.laydate-btns-time {width: 100px; border-radius: 4px; font-size: 12px; display: inline-block; background: #fff; height: 20px; line-height: 20px; position: absolute; top: 0;left: 10px; padding-left: 6px;}
+.laydate-btns-time em {margin: 0 3px; color: #e2e2e2;}
+.laydate-btns-time i {margin: 0 2px; font-style: normal;}
 
 /* 年月列表 */
 .layui-laydate-list{position: absolute; left: 35px; top: -2px; width: 76px; box-sizing: border-box; background-color: #B4DDFF;; border-bottom-left-radius: 4px; border-top: 1px solid #d2eaff; border-bottom-right-radius: 4px; font-size: 12px; overflow: hidden}
@@ -79,15 +82,43 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .laydate-year-list .laydate-year-icon {width: 100%; display: inline-block; text-align: center; cursor: pointer;}
 .laydate-month-list {width: 60px; left: 177px;}
 .laydate-month-list>li{width: 100%; margin: 0; height: 18px; line-height: 18px;}
-.laydate-time-list>li{height: 100%; margin: 0; line-height: normal; cursor: default;}
-.laydate-time-list p{position: relative; top: -4px; line-height: 29px;}
-.laydate-time-list ol{height: 181px; overflow: hidden;}
-.laydate-time-list>li:hover ol{overflow-y: auto;}
-.laydate-time-list ol li{width: 130%; padding-left: 33px; line-height: 30px; text-align: left; cursor: pointer;}
+
+/* 时分秒列表 */
+.laydate-hour-list {top: 85px; left: 10px; width: 150px; background: #F5FAFF; box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.30);border-radius: 4px; border-top: none;padding: 5px 5px 2px;}
+.laydate-hour-list>li {width: 20%; height: 26px;}
+.laydate-hour-list>li .laydate-text {display: inline-block;width: 24px;height: 24px;line-height: 24px;border-radius: 4px;}
+.layui-laydate-list.laydate-hour-list .layui-this {background-color: #fff !important; background-image: none !important;}
+.layui-laydate-list.laydate-hour-list .layui-this .laydate-text {background-color: #3B86FF !important; background-image: linear-gradient(135deg, #6DC1FF 0%, #3B86FF 100%) !important;}
+.layui-laydate-list.laydate-hour-list li:hover {background-color: transparent !important;}
+.layui-laydate-list.laydate-hour-list li:hover .laydate-text {background-color: #eaeaea !important;}
+.laydate-hour-list .lay-hour-title {text-align: center; font-weight: bold; margin: 2px 0 3px 0; position: relative;}
+.laydate-hour-list .lay-hour-title .laydate-hour-close {position: absolute;top: 0;right: 0;cursor: pointer;}
+.laydate-hour-list .lay-hour-title .laydate-hour-close:hover {color: #3B86FF}
+
+.laydate-minute-list {top: 10px; left: 10px; width: 252px; background: #F5FAFF; box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.30);border-radius: 4px; border-top: none;padding: 5px 5px 10px;}
+.laydate-minute-list>li {width: 10%; height: 30px;}
+.laydate-minute-list>li .laydate-text {display: inline-block;width: 24px;height: 24px;line-height: 24px;border-radius: 4px;}
+.layui-laydate-list.laydate-minute-list .layui-this {background-color: #fff !important; background-image: none !important;}
+.layui-laydate-list.laydate-minute-list .layui-this .laydate-text {background-color: #3B86FF !important; background-image: linear-gradient(135deg, #6DC1FF 0%, #3B86FF 100%) !important;}
+.layui-laydate-list.laydate-minute-list li:hover {background-color: transparent !important;}
+.layui-laydate-list.laydate-minute-list li:hover .laydate-text {background-color: #eaeaea !important;}
+.laydate-minute-list .lay-minute-title {text-align: center; font-weight: bold; margin: 6px 0 16px 0; position: relative;}
+.laydate-minute-list .lay-minute-title .laydate-minute-close {position: absolute; top: -6px; right: 1px;cursor: pointer;}
+.laydate-minute-list .lay-minute-title .laydate-minute-close:hover {color: #3B86FF}
+
+.laydate-second-list {top: 10px; left: 10px; width: 252px; background: #F5FAFF; box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.30);border-radius: 4px; border-top: none;padding: 5px 5px 10px;}
+.laydate-second-list>li {width: 10%; height: 30px;}
+.laydate-second-list>li .laydate-text {display: inline-block;width: 24px;height: 24px;line-height: 24px;border-radius: 4px;}
+.layui-laydate-list.laydate-second-list .layui-this {background-color: #fff !important; background-image: none !important;}
+.layui-laydate-list.laydate-second-list .layui-this .laydate-text {background-color: #3B86FF !important; background-image: linear-gradient(135deg, #6DC1FF 0%, #3B86FF 100%) !important;}
+.layui-laydate-list.laydate-second-list li:hover {background-color: transparent !important;}
+.layui-laydate-list.laydate-second-list li:hover .laydate-text {background-color: #eaeaea !important;}
+.laydate-second-list .lay-second-title {text-align: center; font-weight: bold; margin: 6px 0 16px 0; position: relative;}
+.laydate-second-list .lay-second-title .laydate-second-close {position: absolute; top: -6px; right: 1px;cursor: pointer;}
+.laydate-second-list .lay-second-title .laydate-second-close:hover {color: #3B86FF}
 
 /* 提示 */
 .layui-laydate-hint{position: absolute; top: 115px; left: 50%; width: 250px; margin-left: -125px; line-height: 20px; padding: 15px; text-align: center; font-size: 12px; color: #FF5722;}
-
 
 /* 双日历 */
 .layui-laydate-range{width: 546px;}
@@ -98,10 +129,9 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .layui-laydate-range .laydate-main-list-1 .laydate-prev-m{display: none;}
 .layui-laydate-range .laydate-main-list-1 .layui-laydate-content{border-left: 1px solid #e2e2e2;}
 
-
 /* 默认简约主题 */
 .layui-laydate, .layui-laydate-hint{border: 1px solid #d2d2d2; box-shadow: 0 2px 4px rgba(0,0,0,.12); background-color: #fff; color: #666;}
-.layui-laydate {border-color: #3B86FF; border-radius: 4px; background: #3B86FF; background-image: linear-gradient(-135deg, #6DC1FF 0%, #3B86FF 100%);}
+.layui-laydate {border-color: #3B86FF; border-radius: 4px; background: #3B86FF; background-image: linear-gradient(135deg, #6DC1FF 0%, #3B86FF 100%);}
 .layui-laydate-header i:hover {color: #6DC1FF;}
 .laydate-set-ym:hover{color: #3B86FF;}
 .layui-laydate-content{border-top: none 0; border-bottom: none 0;}
@@ -122,14 +152,14 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .laydate-day-mark::after{background-color: #5FB878;}
 .layui-laydate-content td.layui-this .laydate-day-mark::after{display: none;}
 .layui-laydate-footer span[lay-type="date"]{color: #5FB878;}
-.layui-laydate .layui-this{background-color: #3B86FF !important; color: #fff !important; background-image: linear-gradient(-135deg, #6DC1FF 0%, #3B86FF 100%) !important;}
+.layui-laydate .layui-this{background-color: #3B86FF !important; color: #fff !important; background-image: linear-gradient(135deg, #6DC1FF 0%, #3B86FF 100%) !important;}
 .layui-laydate-content table td em {display: inline-block; width: 24px; height: 24px; line-height: 24px; border-radius: 4px; }
 .layui-laydate-content table .layui-this {background-color: #fff !important; background-image: none !important;}
-.layui-laydate-content table .layui-this em {background-color: #3B86FF !important; background-image: linear-gradient(-135deg, #6DC1FF 0%, #3B86FF 100%) !important;}
+.layui-laydate-content table .layui-this em {background-color: #3B86FF !important; background-image: linear-gradient(135deg, #6DC1FF 0%, #3B86FF 100%) !important;}
 .layui-laydate-content td:hover {background-color: #fff !important;}
 .layui-laydate-content td:hover em {background-color: #eaeaea !important;}
 .layui-laydate .laydate-disabled,
-.layui-laydate .laydate-disabled:hover{background:none !important; color: #d2d2d2 !important; cursor: not-allowed !important; -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
+.layui-laydate .laydate-disabled:hover{ color: #d2d2d2 !important; cursor: not-allowed !important; -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
 
 /* 墨绿/自定义背景色主题 */
 .laydate-theme-molv{border: none;}

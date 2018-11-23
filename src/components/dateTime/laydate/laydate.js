@@ -374,7 +374,7 @@
     ,trigger: 'focus' //呼出控件的事件
     ,show: false //是否直接显示，如果设置true，则默认直接显示控件
     ,showBottom: true //是否显示底部栏
-    ,btns: ['clear', 'now', 'confirm'] //右下角显示的按钮，会按照数组顺序排列
+    ,btns: ['now', 'clear', 'confirm'] //右下角显示的按钮，会按照数组顺序排列
     ,lang: 'cn' //语言，只支持cn/en，即中文和英文
     ,theme: 'default' //主题
     ,position: null //控件定位方式定位, 默认absolute，支持：fixed/absolute/static
@@ -399,9 +399,9 @@
         ,dateTips: '返回日期'
         ,month: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
         ,tools: {
-          confirm: '确定'
+          confirm: '确认'
           ,clear: '清空'
-          ,now: '现在'
+          ,now: '今天'
         }
       }
       ,en: {
@@ -572,6 +572,7 @@
       ,elemHeader = that.elemHeader = []
       ,elemCont = that.elemCont = []
       ,elemTable = that.table = []
+      ,elemFooter = that.elemFooter = []
 
       //底部区域
       ,divFooter = that.footer = lay.elem('div', {
@@ -680,13 +681,13 @@
     lay(divFooter).html(function(){
       var html = [], btns = [];
       if(options.type === 'datetime'){
-        html.push('<span lay-type="datetime" class="laydate-btns-time">'+ lang.timeTips +'</span>');
+        html.push('<div class="laydate-btns-time">时间<em>|</em><span lay-type="hour" class="laydate-btns-hour">00</span><i>:</i><span lay-type="minute" class="laydate-btns-minute">00</span><i>:</i><span lay-type="second" class="laydate-btns-second">00</span></div>')
       }
       lay.each(options.btns, function(i, item){
         var title = lang.tools[item] || 'btn';
         if(options.range && item === 'now') return;
         if(isStatic && item === 'clear') title = options.lang === 'cn' ? '重置' : 'Reset';
-        btns.push('<span lay-type="'+ item +'" class="laydate-btns-'+ item +'">'+ title +'</span>');
+        btns.push('<span lay-type="'+ item +'" class="laydate-btns laydate-btns-'+ item +'">'+ title +'</span>');
       });
       html.push('<div class="laydate-footer-btns">'+ btns.join('') +'</div>');
       return html.join('');
@@ -727,7 +728,7 @@
     );
 
     that.checkDate().calendar(); //初始校验
-    that.changeEvent(); //日期切换
+    that.changeEvent(); //日期和时间切换
 
     Class.thisElemDate = that.elemID;
 
@@ -1002,7 +1003,6 @@
       ,dateTime = value || options.dateTime
       ,thisDate = new Date(), startWeek, prevMaxDate, thisMaxDate
       ,lang = that.lang()
-
       ,isAlone = options.type !== 'date' && options.type !== 'datetime'
       ,index = value ? 1 : 0
       ,tds = lay(that.table[index]).find('td')
@@ -1065,6 +1065,10 @@
       lay(elemYM[0]).attr('lay-type', 'month').html(lang.month[dateTime.month]);
       lay(elemYM[1]).attr('lay-type', 'year').html(dateTime.year);
     }
+    var elemTime = lay('.laydate-btns-time').find('span')
+    lay(elemTime[0]).attr('lay-hour', dateTime.hours).html(lay.digit(dateTime.hours))
+    lay(elemTime[1]).attr('lay-minute', dateTime.minutes).html(lay.digit(dateTime.minutes))
+    lay(elemTime[2]).attr('lay-second', dateTime.seconds).html(lay.digit(dateTime.seconds))
 
     //初始默认选择器
     if(isAlone){
@@ -1124,7 +1128,9 @@
       'class': ELEM_LIST + ' ' + ({
         year: 'laydate-year-list'
         ,month: 'laydate-month-list'
-        ,time: 'laydate-time-list'
+        ,hour: 'laydate-hour-list'
+        ,minute: 'laydate-minute-list'
+        ,second: 'laydate-second-list'
       })[type]
     })
       ,elemHeader = that.elemHeader[index]
@@ -1225,6 +1231,57 @@
         ul.appendChild(li);
       });
       setTimeStatus();
+    } else if(type === 'hour') {
+      var title = lay.elem('p', {
+        'class': 'lay-hour-title'
+      });
+      title.innerHTML = '<span>选择小时</span><i class="laydate-hour-close el-icon-close"></i>';
+      ul.appendChild(title);
+      lay.each(new Array(24), function(i){
+        var li = lay.elem('li', {
+          'lay-hour': i
+        });
+        i == that.listHMS[0] && lay(li).addClass(THIS);
+        li.innerHTML = '<em class="laydate-text">' + lay.digit(i, 2) + '</em>';
+        ul.appendChild(li);
+        that[startEnd] = dateTime;
+        that.limit(lay(li), {hours: i}, i, ['hours']);
+        if(!options.range) that.limit(lay(that.footer).find(ELEM_CONFIRM), that[startEnd], 0, ['hours', 'minutes', 'seconds']);
+      })
+    } else if(type === 'minute') {
+      var title = lay.elem('p', {
+        'class': 'lay-minute-title'
+      });
+      title.innerHTML = '<span>选择分钟</span><i class="laydate-minute-close el-icon-close"></i>';
+      ul.appendChild(title);
+      lay.each(new Array(60), function(i){
+        var li = lay.elem('li', {
+          'lay-minute': i
+        });
+        i == that.listHMS[1] && lay(li).addClass(THIS);
+        li.innerHTML = '<em class="laydate-text">' + lay.digit(i, 2) + '</em>';
+        ul.appendChild(li);
+        that[startEnd] = dateTime;
+        that.limit(lay(li), {hours: that[startEnd].hours, minutes: i}, i, ['hours', 'minutes']);
+        if(!options.range) that.limit(lay(that.footer).find(ELEM_CONFIRM), that[startEnd], 0, ['hours', 'minutes', 'seconds']);
+      })
+    } else if(type === 'second') {
+      var title = lay.elem('p', {
+        'class': 'lay-second-title'
+      });
+      title.innerHTML = '<span>选择秒钟</span><i class="laydate-second-close el-icon-close"></i>';
+      ul.appendChild(title);
+      lay.each(new Array(60), function(i){
+        var li = lay.elem('li', {
+          'lay-second': i
+        });
+        i == that.listHMS[2] && lay(li).addClass(THIS);
+        li.innerHTML = '<em class="laydate-text">' + lay.digit(i, 2) + '</em>';
+        ul.appendChild(li);
+        that[startEnd] = dateTime;
+        that.limit(lay(li), {hours: that[startEnd].hours, minutes: that[startEnd].minutes, seconds: i}, i, ['hours', 'minutes', 'seconds']);
+        if(!options.range) that.limit(lay(that.footer).find(ELEM_CONFIRM), that[startEnd], 0, ['hours', 'minutes', 'seconds']);
+      })
     }
 
     //插入容器
@@ -1288,31 +1345,49 @@
 
         that.setBtnStatus(); //同步按钮可点状态
         options.range || that.done(null, 'change');
-        lay(that.footer).find(ELEM_TIME_BTN).removeClass(DISABLED);
+        // lay(that.footer).find(ELEM_TIME_BTN).removeClass(DISABLED);
+      });
+    } else if(type === 'hour') {
+      lay(that.elemMain[index]).addClass('laydate-time-show');
+
+      lay(ul).find('.laydate-hour-close').on('click', function(){
+        that.closeList();
+      });
+      lay(ul).find('li').on('click', function() {
+        that.chooseHour(lay(this));
+        lay(ul).find('.'+ THIS).removeClass(THIS);
+        lay(this).addClass(THIS);
+        // 选完小时自动打开分钟
+        that.listHMS[1] = lay('.laydate-btns-minute').attr('lay-minute');
+        that.list('minute', 0);
+      });
+    } else if(type === 'minute') {
+      lay(that.elemMain[index]).addClass('laydate-time-show');
+
+      lay(ul).find('.laydate-minute-close').on('click', function(){
+        that.closeList();
+      });
+      lay(ul).find('li').on('click', function() {
+        that.chooseMinute(lay(this));
+        lay(ul).find('.'+ THIS).removeClass(THIS);
+        lay(this).addClass(THIS);
+        that.listHMS[1] = lay('.laydate-btns-second').attr('lay-second');
+        that.list('second', 0);
+      });
+    } else if(type === 'second') {
+      lay(that.elemMain[index]).addClass('laydate-time-show');
+
+      lay(ul).find('.laydate-second-close').on('click', function(){
+        that.closeList();
+      });
+      lay(ul).find('li').on('click', function() {
+        that.chooseSecond(lay(this));
+        lay(ul).find('.'+ THIS).removeClass(THIS);
+        lay(this).addClass(THIS);
+        that.closeList();
       });
     } else {
-      var span = lay.elem('span', {
-        'class': ELEM_TIME_TEXT
-      }), scroll = function(){ //滚动条定位
-        lay(ul).find('ol').each(function(i){
-          var ol = this
-            ,li = lay(ol).find('li')
-          ol.scrollTop = 30*(that[startEnd][hms[i]] - 2);
-          if(ol.scrollTop <= 0){
-            li.each(function(ii, item){
-              if(!lay(this).hasClass(DISABLED)){
-                ol.scrollTop = 30*(ii - 2);
-                return true;
-              }
-            });
-          }
-        });
-      }, haveSpan = lay(elemHeader[2]).find('.'+ ELEM_TIME_TEXT);
-      scroll()
-      span.innerHTML = options.range ? [lang.startTime,lang.endTime][index] : lang.timeTips
       lay(that.elemMain[index]).addClass('laydate-time-show');
-      if(haveSpan[0]) haveSpan.remove();
-      elemHeader[2].appendChild(span);
 
       lay(ul).find('ol').each(function(i){
         var ol = this;
@@ -1343,6 +1418,9 @@
 
   //记录列表切换后的年月
   Class.prototype.listYM = [];
+
+  //记录列表切换后的时分秒
+  Class.prototype.listHMS = [];
 
   //关闭列表
   Class.prototype.closeList = function(){
@@ -1444,7 +1522,7 @@
       ,startTime, endTime
       ,tds = lay(that.elem).find('td');
 
-    if(options.range && !that.endDate) lay(that.footer).find(ELEM_CONFIRM).addClass(DISABLED);
+    // if(options.range && !that.endDate) lay(that.footer).find(ELEM_CONFIRM).addClass(DISABLED);
     if(!that.endDate) return;
 
     startTime = that.newDate({
@@ -1583,7 +1661,7 @@
         setDateTime();
         that.startState = true;
       }
-      lay(that.footer).find(ELEM_CONFIRM)[that.endDate ? 'removeClass' : 'addClass'](DISABLED);
+      // lay(that.footer).find(ELEM_CONFIRM)[that.endDate ? 'removeClass' : 'addClass'](DISABLED);
     } else if(options.position === 'static'){ //直接嵌套的选中
       setDateTime(true);
       that.calendar().done().done(null, 'change');
@@ -1595,6 +1673,42 @@
       that.calendar().done(null, 'change');
     }
   };
+
+  //选择小时
+  Class.prototype.chooseHour = function(li) {
+    var that = this
+      ,options = that.config
+      ,dateTime = options.dateTime
+      ,H = {hours: li.attr('lay-hour') | 0};
+    if(li.hasClass(DISABLED)) return;
+    lay.extend(dateTime, H);
+    that.limit(lay(that.footer).find(ELEM_CONFIRM), null, 0);
+    that.calendar().done(null, 'change');
+  }
+
+  //选择分钟
+  Class.prototype.chooseMinute = function(li) {
+    var that = this
+      ,options = that.config
+      ,dateTime = options.dateTime
+      ,H = {minutes: li.attr('lay-minute') | 0};
+    if(li.hasClass(DISABLED)) return;
+    lay.extend(dateTime, H);
+    that.limit(lay(that.footer).find(ELEM_CONFIRM), null, 0);
+    that.calendar().done(null, 'change');
+  }
+
+  //选择秒钟
+  Class.prototype.chooseSecond = function(li) {
+    var that = this
+      ,options = that.config
+      ,dateTime = options.dateTime
+      ,H = {seconds: li.attr('lay-second') | 0};
+    if(li.hasClass(DISABLED)) return;
+    lay.extend(dateTime, H);
+    that.limit(lay(that.footer).find(ELEM_CONFIRM), null, 0);
+    that.calendar().done(null, 'change');
+  }
 
   //底部按钮
   Class.prototype.tool = function(btn, type){
@@ -1754,10 +1868,19 @@
         that.change(-1).prevYear();
         that.closeList();
       });
-
+      //下一年
+      lay(header[2]).on('click', function(e){
+        that.change(-1).nextYear();
+        that.closeList();
+      });
       //上一月
       lay(header[3]).on('click', function(e){
         that.change(i).prevMonth();
+        that.closeList();
+      });
+      //下一月
+      lay(header[5]).on('click', function(e){
+        that.change(i).nextMonth();
         that.closeList();
       });
 
@@ -1773,7 +1896,7 @@
 
         that.listYM[i] = [layYM[0] | 0, layYM[1] | 0];
         that.list(layType, i);
-        lay(that.footer).find(ELEM_TIME_BTN).addClass(DISABLED);
+        // lay(that.footer).find(ELEM_TIME_BTN).addClass(DISABLED);
       });
 
       //选择月
@@ -1788,27 +1911,40 @@
 
         that.listYM[i] = [layYM[0] | 0, layYM[1] | 0];
         that.list(layType, i);
-        lay(that.footer).find(ELEM_TIME_BTN).addClass(DISABLED);
-      });
-
-      //下一月
-      lay(header[5]).on('click', function(e){
-        that.change(i).nextMonth();
-        that.closeList();
-      });
-
-      //下一年
-      lay(header[2]).on('click', function(e){
-        that.change(-1).nextYear();
-        that.closeList();
+        // lay(that.footer).find(ELEM_TIME_BTN).addClass(DISABLED);
       });
     });
+
+    var elemFooter = lay('.laydate-btns-time').find('span')
+
+    lay(elemFooter[0]).on('click', function(e) {
+      var layTime = lay(this).attr('lay-hour')
+        ,layType = lay(this).attr('lay-type');
+      if(!layTime) return;
+      that.listHMS[0] = layTime
+      that.list(layType, 0);
+    })
+    lay(elemFooter[1]).on('click', function(e) {
+      var layTime = lay(this).attr('lay-minute')
+        ,layType = lay(this).attr('lay-type');
+      if(!layTime) return;
+      that.listHMS[1] = layTime
+      that.list(layType, 0);
+    })
+    lay(elemFooter[2]).on('click', function(e) {
+      var layTime = lay(this).attr('lay-second')
+        ,layType = lay(this).attr('lay-type');
+      if(!layTime) return;
+      that.listHMS[2] = layTime
+      that.list(layType, 0);
+    })
 
     //点击日期
     lay.each(that.table, function(i, table){
       var tds = lay(table).find('td');
       tds.on('click', function(){
         that.choose(lay(this));
+        that.closeList();
       });
     });
 
