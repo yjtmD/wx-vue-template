@@ -1,15 +1,20 @@
 <template>
-  <div class="wx-time-input">
+  <div class="wx-time-input" @mouseenter="handleMouseEnter" @mouseleave="showClose = false">
     <input
       :id="id"
       type="text"
       class="wx-input__inner"
+      readonly
       autocomplete="off"
       v-model="userInput"
       :placeholder="holderText"
-      @keyup="timeChange"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="showClose = false" />
+      @keyup="timeChange"/>
+    <i
+      v-if="showClose"
+      class="wx-input__icon"
+      @click="handleClickIcon"
+      :class="[showClose ? '' + clearIcon : '']">
+    </i>
   </div>
 </template>
 
@@ -29,6 +34,22 @@ export default {
     id: {
       type: String,
       default: ''
+    },
+    clearable: {
+      type: Boolean,
+      default: true
+    },
+    clearIcon: {
+      type: String,
+      default: 'el-icon-circle-close'
+    },
+    min: {
+      type: String,
+      default: ''
+    },
+    max: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -42,10 +63,18 @@ export default {
   computed: {
   },
   methods: {
-    timeChange (e) {
+    timeChange () {
       this.$emit('input', this.userInput)
     },
-    handleMouseEnter (e) {
+    handleMouseEnter () {
+      if (this.clearable && this.userInput !== '') {
+        this.showClose = true
+      }
+    },
+    handleClickIcon () {
+      this.userInput = ''
+      this.showClose = false
+      this.$emit('input', this.userInput)
     }
   },
   created () {
@@ -54,10 +83,12 @@ export default {
     window.laydate.render({
       elem: '#' + this.id,
       value: this.userInput,
-      // min: '2017-10-25 12:25:34', // 时间范围下限
-      // max: '2018-11-23 01:43:21', // 时间范围上限
+      min: this.min || '1900-1-1', // 时间范围下限 2017-10-25 12:25:34
+      max: this.max || '2099-12-31', // 时间范围上限 2018-11-23 01:43:21
       type: 'datetime', // date datetime
       done: (value, date, endDate) => {
+        console.log(value, date, endDate)
+        this.userInput = value
       }
     })
     if (this.value !== '') {
@@ -103,6 +134,18 @@ export default {
         outline: none;
         border-color: #409eff;
       }
+    }
+    .wx-input__icon {
+      position: absolute;
+      width: 25px;
+      height: 100%;
+      text-align: center;
+      transition: all .3s;
+      line-height: 32px;
+      color: #c0c4cc;
+      top: 0;
+      right: 0;
+      cursor: pointer;
     }
   }
 </style>
