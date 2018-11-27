@@ -6,6 +6,14 @@
         class="time-demo-1"
         v-model="time">
       </wx-time>
+      <div class="wx-time-range">
+        <wx-time-range
+          ref="dateTime1"
+          disableDate="after"
+          @beginTimeChange="beginTimeChange"
+          @endTimeChange="endTimeChange">
+        </wx-time-range>
+      </div>
     </div>
   </wx-layout>
 </template>
@@ -13,19 +21,26 @@
 <script>
 import wxLayout from '@/components/layout/index'
 import wxTime from '@/components/dateTime/index'
+import wxTimeRange from '@/components/dateTimeRange/index'
 
 export default {
   components: {
     wxLayout,
-    wxTime
+    wxTime,
+    wxTimeRange
   },
   data () {
     return {
-      time: '',
-      showClose: true
+      time: ''
     }
   },
   methods: {
+    beginTimeChange (val) {
+      this.beginTime = val
+    },
+    endTimeChange (val) {
+      this.endTime = val
+    }
   },
   created () {
   },
@@ -42,6 +57,12 @@ export default {
   .wx-time-page {
     .time-demo-1 {
       width: 220px;
+      display: inline-block;
+    }
+    .wx-time-range {
+      display: inline-block;
+      vertical-align: bottom;
+      margin-left: 30px;
     }
   }
 </style>

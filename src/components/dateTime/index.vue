@@ -87,7 +87,6 @@ export default {
       max: this.max || '2099-12-31', // 时间范围上限 2018-11-23 01:43:21
       type: 'datetime', // date datetime
       done: (value, date, endDate) => {
-        console.log(value, date, endDate)
         this.userInput = value
       }
     })

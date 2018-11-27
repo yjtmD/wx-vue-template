@@ -1371,7 +1371,7 @@
         that.chooseMinute(lay(this));
         lay(ul).find('.'+ THIS).removeClass(THIS);
         lay(this).addClass(THIS);
-        that.listHMS[1] = lay('.laydate-btns-second').attr('lay-second');
+        that.listHMS[2] = lay('.laydate-btns-second').attr('lay-second');
         that.list('second', 0);
       });
     } else if(type === 'second') {
