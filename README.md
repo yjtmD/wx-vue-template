@@ -49,3 +49,6 @@ npm run build
 
 ![Image text](./static/screenShot/time1.png)
 
+> 九宫格视频与树联动操作(可用于云台控制)
+
+![Image text](./static/screenShot/video.jpg)
