@@ -50,7 +50,7 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .layui-laydate-header i.laydate-prev-m{right: 100px;}
 .layui-laydate-header i.laydate-next-m{right: 10px;}
 .laydate-set-ym{box-sizing: border-box; background: #B4DDFF; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; border-radius: 4px; position: relative;}
-.laydate-set-y {width: 76px; margin-left: 25px; padding: 0 26px 0 10px;}
+.laydate-set-y {width: 76px; margin-left: 25px; padding: 0 24px 0 10px;}
 .laydate-set-m {width: 60px; margin-left: 66px; padding: 0 20px 0 10px;}
 .laydate-set-ym span{cursor: pointer; font-size: 12px}
 .laydate-set-ym em{cursor: pointer; font-size: 12px; position: absolute; right: 3px; top: 4px}

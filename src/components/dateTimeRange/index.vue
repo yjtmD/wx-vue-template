@@ -2,7 +2,7 @@
   <el-row class="date-time-parent">
     <el-col :span="11">
       <wx-time
-        id="startTime"
+        :id="beginId"
         class="time-input"
         v-model="sTime"
         :holderText="beginText"
@@ -16,7 +16,7 @@
     </el-col>
     <el-col :span="11">
       <wx-time
-        id="endTime"
+        :id="endId"
         class="time-input"
         v-model="eTime"
         :holderText="endText"
@@ -41,6 +41,14 @@ function qDateFormat (date) {
 
 export default {
   props: {
+    beginId: {
+      type: String,
+      default: 'startTime'
+    },
+    endId: {
+      type: String,
+      default: 'endTime'
+    },
     beginText: {
       // 开始文字
       type: String,
@@ -89,8 +97,8 @@ export default {
       date1 = qDateFormat(dt)
       date2 = qDateFormat(new Date())
     } else if (this.defaultValue === 'null') {
-      date1 = ''
-      date2 = ''
+      date1 = null
+      date2 = null
     } else if (this.defaultValue === 'afterThreeDay') {
       date1 = qDateFormat(new Date())
       let dt = new Date()
@@ -124,19 +132,20 @@ export default {
       } else {
         this.eTime = this.resetETime
       }
-      this.$emit('beginTimeChange', new Date(this.sTime), this.sTime)
-      this.$emit('endTimeChange', new Date(this.eTime), this.eTime)
+      this.$emit('beginTimeChange', this.sTime)
+      this.$emit('endTimeChange', this.eTime)
     },
     changeSTime () {
-      this.$emit('beginTimeChange', new Date(this.sTime), this.sTime)
+      console.log(this.sTime)
+      this.$emit('beginTimeChange', this.sTime)
     },
     changeETime () {
-      this.$emit('endTimeChange', new Date(this.eTime), this.eTime)
+      this.$emit('endTimeChange', this.eTime)
     }
   },
   mounted () {
-    this.$emit('beginTimeChange', new Date(this.sTime), this.sTime)
-    this.$emit('endTimeChange', new Date(this.eTime), this.eTime)
+    this.$emit('beginTimeChange', this.sTime)
+    this.$emit('endTimeChange', this.eTime)
   }
 }
 </script>

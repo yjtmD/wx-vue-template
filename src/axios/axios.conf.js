@@ -52,13 +52,22 @@ Axios.interceptors.response.use(response => {
   // 返回的是excel 直接调用浏览器下载
   if (response.headers && (response.headers['content-type'].indexOf('application/x-msdownload') != -1 || response.headers['content-type'].indexOf('application/vnd.ms-excel') != -1)) {
     downloadUrl(response.request.responseURL)
-    return {
+    response.data = {
       code: 0,
       message: 'success'
     }
   } else {
-    return response
+    if (response.data.code === -3) {
+      window.location.href = response.data.data
+    } else if (response.data.code !== 0) {
+      Message({
+        showClose: true,
+        message: response.data.msg,
+        type: 'error'
+      })
+    }
   }
+  return response
 }, err => {
   if (err && err.response) {
     switch (err.response.status) {

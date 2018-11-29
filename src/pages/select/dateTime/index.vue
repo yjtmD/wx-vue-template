@@ -31,15 +31,19 @@ export default {
   },
   data () {
     return {
-      time: ''
+      time: '',
+      beginTime: '', // yyyy-MM-dd HH:mm:ss
+      endTime: ''
     }
   },
   methods: {
     beginTimeChange (val) {
       this.beginTime = val
+      console.log(val)
     },
     endTimeChange (val) {
       this.endTime = val
+      console.log(val)
     }
   },
   created () {

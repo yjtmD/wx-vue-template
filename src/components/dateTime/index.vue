@@ -65,6 +65,7 @@ export default {
   methods: {
     timeChange () {
       this.$emit('input', this.userInput)
+      this.$emit('change', this.userInput)
     },
     handleMouseEnter () {
       if (this.clearable && this.userInput !== '') {
@@ -75,6 +76,7 @@ export default {
       this.userInput = ''
       this.showClose = false
       this.$emit('input', this.userInput)
+      this.$emit('change', this.userInput)
     }
   },
   created () {
@@ -88,6 +90,8 @@ export default {
       type: 'datetime', // date datetime
       done: (value, date, endDate) => {
         this.userInput = value
+        this.$emit('input', this.userInput)
+        this.$emit('change', this.userInput)
       }
     })
     if (this.value !== '') {
