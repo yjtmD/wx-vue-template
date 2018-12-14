@@ -40,6 +40,14 @@ let router = new Router({
       }
     },
     {
+      path: '/select/slider',
+      name: 'Slider',
+      component: () => import('@/pages/select/slider/index'),
+      meta: {
+        title: '滑块选择'
+      }
+    },
+    {
       path: '/',
       redirect: '/index'
     },

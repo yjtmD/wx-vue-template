@@ -39,8 +39,8 @@
 
 <script>
 import wxLayout from '@/components/layout/index'
-import DeviceTree from '@/components/DeviceTree/index'
-import DeviceVideoPlayer from '@/components/DeviceVideoPlayer/index'
+import DeviceTree from '@/components/deviceTree/index'
+import DeviceVideoPlayer from '@/components/deviceVideoPlayer/index'
 
 export default {
   components: {

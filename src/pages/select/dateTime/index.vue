@@ -1,12 +1,12 @@
 <template>
   <wx-layout>
-    <div class="wx-time-page">
+    <div class="wx-time-page center-content">
       <wx-time
         id="demoTime"
         class="time-demo-1"
         v-model="time">
       </wx-time>
-      <div class="wx-time-range">
+      <div class="wx-time-range center-content">
         <wx-time-range
           ref="dateTime1"
           disableDate="after"
@@ -61,12 +61,12 @@ export default {
   .wx-time-page {
     .time-demo-1 {
       width: 220px;
-      display: inline-block;
     }
     .wx-time-range {
-      display: inline-block;
-      vertical-align: bottom;
-      margin-left: 30px;
+      .date-time-parent {
+        width: 360px;
+        margin: 40px auto 0;
+      }
     }
   }
 </style>

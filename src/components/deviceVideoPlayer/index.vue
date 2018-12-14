@@ -205,7 +205,9 @@ export default {
           content: ''
         }
         .vjs-modal-dialog-content {
-          padding-top: 25%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }

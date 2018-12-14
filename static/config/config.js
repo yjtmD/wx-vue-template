@@ -44,6 +44,11 @@ var WXCONF = {
           id: '100000401',
           pathName: 'DateTime',
           name: '日期时间选择'
+        },
+        {
+          id: '100000402',
+          pathName: 'Slider',
+          name: '滑块选择'
         }
       ]
     }

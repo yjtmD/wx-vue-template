@@ -98,7 +98,8 @@ export default {
       this.userInput = this.value
     }
   },
-  destroyed () {
+  beforeDestroy () {
+    window.laydate.remove(this.id)
   },
   watch: {
     value (newVal, oldVal) {
