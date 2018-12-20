@@ -57,7 +57,8 @@ export default {
   data () {
     return {
       userInput: '',
-      showClose: false
+      showClose: false,
+      key: ''
     }
   },
   computed: {
@@ -94,12 +95,13 @@ export default {
         this.$emit('change', this.userInput)
       }
     })
+    this.key = window.lay('#' + this.id).attr('lay-key')
     if (this.value !== '') {
       this.userInput = this.value
     }
   },
   beforeDestroy () {
-    window.laydate.remove(this.id)
+    window.lay('#layui-laydate' + this.key).remove()
   },
   watch: {
     value (newVal, oldVal) {
